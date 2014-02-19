@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>project</artifactId>
+    <groupId>org.jboss.fuse.training</groupId>
+    <version>1.0</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>camel</artifactId>
+  <packaging>pom</packaging>
+
+  <name>RedHat Training :: Fuse :: Camel exercise</name>
+
+  <modules>
+    <!-- Exercise : Java Main & Camel Main + Java DSL -->
+    <module>camel-exercise-standalone</module>
+
+    <!-- Exercise : Camel Spring Main + Spring  DSL -->
+    <module>camel-exercise-spring-standalone</module>
+
+    <!-- Exercise : Camel Expression language (simple, xpath, ...) & bean -->
+    <module>camel-exercise-expressions</module>
+
+    <!-- Exercise : Camel Unit Test -->
+    <module>camel-exercise-unit-test</module>
+
+    <!-- Exercise : Camel Dataformat with Bindy & CSV -->
+    <module>camel-exercise-dataformat</module>
+
+    <!-- Exercise : Camel Exceptions (DLQ, onException) -->
+    <module>camel-exercise-exception</module>
+
+    <!-- Exercise : Content Based Router + endpoint -->
+    <module>camel-exercise-cbr-endpoint</module>
+
+    <!-- Exercise : Camel running in JBoss EAP 7 -->
+    <module>camel-exercise-web</module>
+
+    <module>camel-exercise-webservice</module>
+
+    <module>camel-exercise-aggregator</module>
+
+    <module>camel-exercise-ftp</module>
+
+    <module>camel-exercise-splitter</module>
+
+    <module>camel-exercise-jms-transaction</module>
+
+    <module>camel-exercise-jdbc-jms-transaction</module>
+
+    <module>camel-exercise-features</module>
+
+
+  </modules>
+
+
+</project>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  	    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+  	   ">
+
+    <camelContext xmlns="http://camel.apache.org/schema/spring">
+        <routeBuilder ref="currencyWithTxChecker"/>
+        <route>
+            <from uri="activemq:queue:outgoingTxPayments"/>
+            <convertBodyTo type="java.lang.String"/>
+            <!--<to uri="log:com.fusesource.camel.exercises.out?showBody=true"/>-->
+            <to uri="file:./target/test-classes/camel/out"/>
+        </route>
+        <route>
+            <from uri="file:./target/test-classes/camel/in"/>
+            <convertBodyTo type="java.lang.String"/>
+            <!--<to uri="log:com.fusesource.camel.exercises.in?showBody=true"/>-->
+            <to uri="activemq:queue:incomingTxPayments"/>
+        </route>
+    </camelContext>
+
+    <bean id="currencyWithTxChecker" class="org.jboss.fuse.training.camel.transaction.mysql.PaymentCurrencyTestWithTxRouter">
+        <property name="incomingQueue" value="incomingTxPayments"/>
+        <property name="outgoingQueue" value="outgoingTxPayments"/>
+        <property name="dataSource" ref="datasource"/>
+    </bean>
+
+    <bean id="jmsTransactionManager" class="org.springframework.jms.connection.JmsTransactionManager">
+        <property name="connectionFactory" ref="jmsConnectionFactory"/>
+    </bean>
+
+    <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL"
+                  value="tcp://localhost:61616?jms.redeliveryPolicy.maximumRedeliveries=3&amp;jms.redeliveryPolicy.initialRedeliveryDelay=500"/>
+    </bean>
+
+    <bean name="activemq" class="org.apache.camel.component.jms.JmsComponent">
+        <property name="connectionFactory" ref="jmsConnectionFactory"/>
+        <property name="transactionManager" ref="jmsTransactionManager"/>
+        <property name="transacted" value="true"/>
+    </bean>
+
+    <bean id="datasource" class="org.apache.tomcat.jdbc.pool.DataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/fuse_demo"/>
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
+    </bean>
+
+    <bean name="jdbcTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="datasource"/>
+    </bean>
+
+    <bean id="POLICY_PROPAGATION_REQUIRED"
+          class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="jdbcTransactionManager"/>
+        <property name="propagationBehaviorName" value="PROPAGATION_REQUIRED"/>
+    </bean>
+
+    <bean id="processedMessagesRepository" class="org.jboss.fuse.training.camel.transaction.mysql.JdbcMessageIdRepository">
+        <property name="dataSource" ref="datasource"/>
+    </bean>
+
+</beans>

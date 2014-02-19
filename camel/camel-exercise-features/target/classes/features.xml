@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.0.0 http://karaf.apache.org/xmlns/features/v1.0.0"
+          name="com.fusesource.training">
+
+    <!-- import other features files -->
+    <repository>mvn:org.apache.servicemix/apache-servicemix/${servicemix.version}/xml/features</repository>
+
+    <feature name="camel-exercise-cbr">
+        <feature version="2.10.0.redhat-60023">camel-core</feature>
+        <bundle>mvn:org.jboss.fuse.training/camel-exercise-cbr/1.0</bundle>
+    </feature>
+
+    <feature name="camel-exercise-cbr-endpoints">
+        <feature version="2.10.0.redhat-60023">camel-core</feature>
+        <bundle>mvn:org.jboss.fuse.training/camel-exercise-cbr-endpoints/1.0</bundle>
+    </feature>
+
+    <feature name="camel-exercise-exception">
+        <feature version="2.10.0.redhat-60023">camel-core</feature>
+        <bundle>mvn:org.jboss.fuse.training/camel-exercise-exception/1.0</bundle>
+    </feature>
+
+    <feature name="camel-exercise-webservice">
+        <feature version="2.10.0.redhat-60023">camel-core</feature>
+        <feature version="2.10.0.redhat-60023">camel-soap</feature>
+        <feature version="2.10.0.redhat-60023">camel-http</feature>
+        <feature version="2.10.0.redhat-60023">camel-cxf</feature>
+        <bundle>mvn:org.jboss.fuse.training/camel-exercise-webservice/1.0</bundle>
+    </feature>
+
+    <feature name="camel-exercise-ftp">
+        <feature version="2.10.0.redhat-60023">camel-core</feature>
+        <feature version="2.10.0.redhat-60023">camel-jms</feature>
+        <feature version="2.10.0.redhat-60023">camel-ftp</feature>
+        <feature version="2.10.0.redhat-60023">camel-csv</feature>
+        <bundle>mvn:org.jboss.fuse.training/camel-exercise-ftp/1.0</bundle>
+    </feature>
+
+    <feature name="camel-exercise-ftp-to-jms">
+        <feature version="2.10.0.redhat-60023">camel-core</feature>
+        <feature version="2.10.0.redhat-60023">camel-jms</feature>
+        <feature version="2.10.0.redhat-60023">camel-ftp</feature>
+        <feature version="2.10.0.redhat-60023">camel-bindy</feature>
+        <bundle>mvn:org.jboss.fuse.training/camel-exercise-ftp-to-jms/1.0</bundle>
+    </feature>
+
+    <feature name="camel-exercise-cache">
+        <feature version="2.10.0.redhat-60023">camel-cache</feature>
+        <bundle>mvn:org.jboss.fuse.training/camel-exercise-cache/1.0</bundle>
+    </feature>
+
+    <feature name="camel-exercise-ws-proxy">
+        <feature>http</feature>
+        <feature version="2.10.0.redhat-60023">camel-http</feature>
+        <feature version="2.10.0.redhat-60023">camel-cxf</feature>
+        <bundle>mvn:org.jboss.fuse.training/camel-exercise-ws-proxy/1.0</bundle>
+    </feature>
+
+    <feature name="camel-exercise-wssecurity">
+        <feature>http</feature>
+        <feature version="2.10.0.redhat-60023">camel-cxf</feature>
+        <feature version="2.10.0.redhat-60023">camel-velocity</feature>
+        <feature>saaj</feature>
+        <bundle>mvn:org.jboss.fuse.training/camel-exercise-wssecurity/1.0</bundle>
+    </feature>
+
+    <feature name="camel-exercise-splitter">
+        <feature version="2.10.0.redhat-60023">camel-core</feature>
+        <feature version="2.10.0.redhat-60023">camel-jms</feature>
+        <bundle>mvn:org.jboss.fuse.training/camel-exercise-splitter/1.0</bundle>
+    </feature>
+
+    <feature name="camel-exercise-aggregator">
+        <feature version="2.10.0.redhat-60023">camel-core</feature>
+        <feature version="2.10.0.redhat-60023">camel-jms</feature>
+        <bundle>mvn:org.jboss.fuse.training/camel-exercise-aggregator/1.0</bundle>
+    </feature>
+
+    <feature name="camel-exercise-jms-transaction">
+        <feature version="2.10.0.redhat-60023">camel-core</feature>
+        <feature version="2.10.0.redhat-60023">camel-jms</feature>
+        <feature version="2.10.0.redhat-60023">camel-jaxb</feature>
+        <bundle>mvn:org.jboss.fuse.training/camel-exercise-jms-transaction/1.0</bundle>
+    </feature>
+
+    <feature name="camel-exercise-jdbc-jms-transaction">
+        <feature version="2.10.0.redhat-60023">camel-core</feature>
+        <feature version="2.10.0.redhat-60023">camel-jms</feature>
+        <feature version="2.10.0.redhat-60023">camel-jaxb</feature>
+        <bundle>mvn:org.springframework/spring-jdbc/${spring.version}</bundle>
+        <bundle>wrap:mvn:postgresql/postgresql/${postgres.version}</bundle>
+        <bundle>mvn:org.jboss.fuse.training/camel-exercise-jdbc-jms-transaction/1.0</bundle>
+    </feature>
+
+    <feature name="camel-exercise-custom-file-component">
+        <feature version="2.10.0.redhat-60023">camel-core</feature>
+        <bundle>mvn:org.jboss.fuse.training/camel-exercise-custom-file-component/1.0</bundle>
+    </feature>
+
+</features>

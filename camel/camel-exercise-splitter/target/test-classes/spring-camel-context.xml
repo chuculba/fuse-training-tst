@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  	    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+  	   ">
+
+    <camelContext xmlns="http://camel.apache.org/schema/spring">
+        <routeBuilder ref="singlePaymentSplitter"/>
+
+        <route>
+            <from uri="seda:IndividualPayments.XML"/>
+            <convertBodyTo type="java.lang.String"/>
+            <!-- Reset the File Name to a new name so that the files are not created in the files with the
+                 same name as the originating file -->
+            <setHeader headerName="CamelFileName">
+                <constant>single.payment.list.in.xml.snippets.txt</constant>
+            </setHeader>
+            <to uri="log:com.fusesource.camel.exercises.out?showBody=true&amp;showHeaders=false"/>
+            <to uri="file:./target/test-classes/camel/out/?fileExist=Append"/>
+        </route>
+    </camelContext>
+
+    <bean id="singlePaymentSplitter" class="org.jboss.fuse.training.camel.splitter.SplitIntoSinglePaymentsRouter">
+        <property name="incomingDestinationName" value="Payments.XML"/>
+        <property name="outgoingDestinationName" value="IndividualPayments.XML"/>
+        <property name="destinationComponentName" value="seda"/>
+        <property name="sourceDirectory" value="./target/test-classes/camel/in"/>
+    </bean>
+
+</beans>

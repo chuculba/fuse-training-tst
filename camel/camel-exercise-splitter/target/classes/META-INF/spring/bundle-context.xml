@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       ">
+
+    <camelContext xmlns="http://camel.apache.org/schema/spring">
+        <routeBuilder ref="singlePaymentSplitter"/>
+    </camelContext>
+
+
+    <bean name="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
+        <property name="brokerURL" value="tcp://localhost:61616"/>
+    </bean>
+
+    <bean id="singlePaymentSplitter" class="org.jboss.fuse.training.camel.splitter.SplitIntoSinglePaymentsRouter">
+        <property name="sourceDirectory" value="/camel-exercise/splitter/in"/>
+        <property name="incomingDestinationName" value="Payments.XML"/>
+        <property name="outgoingDestinationName" value="IndividualPayments.XML"/>
+        <property name="destinationComponentName" value="activemq:queue"/>
+        <property name="createDirectories" value="true"/>
+    </bean>
+
+</beans>

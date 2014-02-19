@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+  	        http://www.springframework.org/schema/beans
+  		    http://www.springframework.org/schema/beans/spring-beans.xsd
+  		    http://camel.apache.org/schema/spring
+		    http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <camelContext xmlns="http://camel.apache.org/schema/spring">
+        <routeBuilder ref="amountExtractor"/>
+    </camelContext>
+
+    <bean id="amountExtractor" class="org.jboss.fuse.training.camel.ftp.PaymentAmountExtractor">
+        <property name="ftpHostOrIPAddress" value="localhost"/>
+        <property name="ftpUserName" value="amelia"/>
+        <property name="ftpPassword" value="amelia"/>
+        <property name="ftpDirectoryWithEndingSlash" value="ftp/"/>
+    </bean>
+
+</beans>

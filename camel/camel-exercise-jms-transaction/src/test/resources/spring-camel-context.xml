@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+	        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	  	    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+	   ">
+
+    <camelContext xmlns="http://camel.apache.org/schema/spring">
+        <routeBuilder ref="currencyChecker"/>
+        <route>
+            <from uri="file:./target/test-classes/camel/in"/>
+            <convertBodyTo type="java.lang.String"/>
+            <!--<to uri="log:com.fusesource.camel.exercises.in?showBody=true"/>-->
+            <to uri="activemq:queue:incomingPayments"/>
+        </route>
+        <route>
+            <from uri="activemq:queue:outgoingPayments"/>
+            <convertBodyTo type="java.lang.String"/>
+            <!--<to uri="log:com.fusesource.camel.exercises.out?showBody=true"/>-->
+            <to uri="file:./target/test-classes/camel/out/"/>
+        </route>
+    </camelContext>
+
+    <bean id="currencyChecker" class="org.jboss.fuse.training.camel.jms.transaction.PaymentCurrencyTestRouter">
+        <property name="incomingQueue" value="incomingPayments"/>
+        <property name="outgoingQueue" value="outgoingPayments"/>
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.jms.connection.JmsTransactionManager">
+        <property name="connectionFactory" ref="jmsConnectionFactory"/>
+    </bean>
+
+    <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL"
+                  value="tcp://localhost:61616?jms.redeliveryPolicy.maximumRedeliveries=3&amp;jms.redeliveryPolicy.initialRedeliveryDelay=500"/>
+    </bean>
+
+    <bean name="activemq" class="org.apache.camel.component.jms.JmsComponent">
+        <property name="connectionFactory" ref="jmsConnectionFactory"/>
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="transacted" value="true"/>
+    </bean>
+
+</beans>

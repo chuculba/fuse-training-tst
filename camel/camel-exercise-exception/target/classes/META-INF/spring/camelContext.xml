@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+  		http://www.springframework.org/schema/beans/spring-beans.xsd
+  		http://camel.apache.org/schema/spring
+		http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <bean id="myBeanError" class="org.jboss.fuse.training.camel.exception.MyBean"/>
+    <bean id="myBeanErrorException" class="org.jboss.fuse.training.camel.exception.MyBean"/>
+
+    <camelContext xmlns="http://camel.apache.org/schema/spring">
+
+        <packageScan>
+            <package>org.jboss.fuse.training.camel.exception</package>
+        </packageScan>
+
+        <jmxAgent statisticsLevel="All" registerNewRoutes="true" usePlatformMBeanServer="true" createConnector="true" onlyRegisterProcessorWithCustomId="false" disabled="false" id="agent"/>
+
+        <endpoint uri="file:/camel-exercise/exception/in/xml" id="sourceDirectoryXml"/>
+        <endpoint uri="direct://errorHandlerWithException" id="directErrorHandlerWithException"/>
+        <endpoint uri="direct://errorHandler" id="directErrorHandler"/>
+        <endpoint uri="file:/camel-exercise/exception/xml/out/?fileExist=Append&amp;fileName=money-${date:now:yyyyMMdd}.xml" id="moneyUriXml"/>
+        <endpoint uri="direct://directDLQError" id="directDLQError"/>
+
+    </camelContext>
+
+
+</beans>

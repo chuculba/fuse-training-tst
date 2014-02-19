@@ -1,0 +1,8 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tra="http://training.fusesource.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tra:getCustomerByName>
+         <name>Fuse</name>
+      </tra:getCustomerByName>
+   </soapenv:Body>
+</soapenv:Envelope>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  	    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+  	   ">
+
+  <camelContext xmlns="http://camel.apache.org/schema/spring">
+    <routeBuilder ref="paymentsByReceiverAggregator"/>
+  </camelContext>
+
+  <bean id="paymentsByReceiverAggregator"
+        class="org.jboss.fuse.training.camel.aggregator.PaymentsByReceiverAggregator">
+    <property name="sourceDirectory" value="/camel-exercise/aggregator/in"/>
+    <property name="sinkDirectory" value="/camel-exercise/aggregator/out"/>
+    <property name="aggregateTimeoutPeriodInSeconds" value="5"/>
+    <property name="createDirectories" value="true"/>
+  </bean>
+</beans>

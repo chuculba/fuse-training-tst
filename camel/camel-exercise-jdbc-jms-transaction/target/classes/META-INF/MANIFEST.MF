@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1392802036265
+Build-Jdk: 1.6.0_33
+Built-By: hpejcino
+Bundle-ManifestVersion: 2
+Bundle-Name: RedHat Training :: Fuse :: Camel exercise :: JDBC - JMS Tra
+ nsaction
+Bundle-SymbolicName: org.jboss.fuse.training.camel-exercise-jdbc-jms-tra
+ nsaction
+Bundle-Version: 1.0.0
+Created-By: Apache Maven Bundle Plugin
+Import-Package: com.fusesource.training.transaction.postgresql,javax.sql
+ ,javax.xml.bind.annotation,org.apache.activemq,org.apache.camel;version
+ ="[2.10,3)",org.apache.camel.builder;version="[2.10,3)",org.apache.came
+ l.component.jms;version="[2.10,3)",org.apache.camel.converter.jaxb;vers
+ ion="[2.10,3)",org.apache.camel.model;version="[2.10,3)",org.apache.cam
+ el.spi;version="[2.10,3)",org.apache.camel.spring;version="[2.10,3)",or
+ g.apache.camel.spring.spi;version="[2.10,3)",org.postgresql.ds,org.slf4
+ j;version="1.6.6",org.springframework.beans.factory;version="[3.1,4)",o
+ rg.springframework.jdbc.core;version="[3.1,4)",org.springframework.jdbc
+ .datasource;version="[3.1,4)",org.springframework.jms.connection;versio
+ n="[3.1,4)",org.springframework.transaction.support;version="[3.1,4)"
+Tool: Bnd-1.50.0

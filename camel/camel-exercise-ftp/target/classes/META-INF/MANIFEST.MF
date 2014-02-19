@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1392802035777
+Build-Jdk: 1.6.0_33
+Built-By: hpejcino
+Bundle-ManifestVersion: 2
+Bundle-Name: RedHat Training :: Fuse :: Camel exercise :: FTP Consumer
+Bundle-SymbolicName: org.jboss.fuse.training.camel-exercise-ftp
+Bundle-Version: 1.0.0
+Created-By: Apache Maven Bundle Plugin
+Import-Package: org.apache.activemq,org.apache.camel;version="[2.10,3)",
+ org.apache.camel.builder;version="[2.10,3)",org.apache.camel.component.
+ jms,org.apache.camel.dataformat.csv;version="[2.10,3)",org.apache.camel
+ .model;version="[2.10,3)",org.apache.camel.processor.idempotent;version
+ ="[2.10,3)",org.apache.camel.spi;version="[2.10,3)",org.apache.oro.text
+ .regex,org.slf4j;version="1.6.6",org.springframework.beans.factory;vers
+ ion="[3.1,4)"
+Tool: Bnd-1.50.0
