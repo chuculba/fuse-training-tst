@@ -113,7 +113,7 @@
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Import-Package>
               META-INF.cxf,
-              org.xmlsoap.schemas.soap.envelope;version=0,
+              org.xmlsoap.schemas.soap.envelope,
               *
             </Import-Package>
             <DynamicImport-Package>
@@ -121,12 +121,9 @@
               org.springframework.beans.*
             </DynamicImport-Package>
             <Private-Package>
-              com.fusesource.training,
-              com.fusesource.training.camel
+              org.jboss.training,
+              org.jboss.training.camel
             </Private-Package>
-            <Export-Package>
-            </Export-Package>
-            <_failok>true</_failok>
           </instructions>
         </configuration>
       </plugin>
