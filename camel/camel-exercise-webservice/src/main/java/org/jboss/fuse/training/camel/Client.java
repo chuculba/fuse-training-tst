@@ -39,7 +39,7 @@ public final class Client {
 
 	public static void main(String args[]) throws Exception {
 		try {
-			System.out.println("Starting  with  Client");
+			System.out.println("Starting with  Client");
 			SpringBusFactory bf = new SpringBusFactory();
 			URL busFile = Client.class.getResource("/client.xml");
 			Bus bus = bf.createBus(busFile.toString());
