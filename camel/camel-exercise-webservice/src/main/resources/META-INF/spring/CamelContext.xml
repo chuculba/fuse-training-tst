@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"	
+	xmlns:wsa="http://cxf.apache.org/ws/addressing"
+	xmlns:wsrm-policy="http://schemas.xmlsoap.org/ws/2005/02/rm/policy"
+	xmlns:wsrm-mgr="http://cxf.apache.org/ws/rm/manager" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:cxfcore="http://cxf.apache.org/core"
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans
   		http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -9,12 +14,16 @@
   		http://camel.apache.org/schema/spring
 		http://camel.apache.org/schema/spring/camel-spring.xsd
 		http://camel.apache.org/schema/cxf
-		http://camel.apache.org/schema/cxf/camel-cxf.xsd">
-
-
+		http://camel.apache.org/schema/cxf/camel-cxf.xsd
+	    http://cxf.apache.org/transports/http/configuration 
+        http://cxf.apache.org/schemas/configuration/http-conf.xsd
+        http://schemas.xmlsoap.org/ws/2005/02/rm/policy 
+        http://schemas.xmlsoap.org/ws/2005/02/rm/wsrm-policy.xsd
+        http://cxf.apache.org/ws/rm/manager 
+        http://cxf.apache.org/schemas/configuration/wsrm-manager.xsd">
 
 	<cxf:cxfEndpoint id="WS" 
-		address="/training/WebService" serviceClass="org.jboss.training.CustomerService">
+		address="http://localhost:8182/training/WebService" serviceClass="org.jboss.training.CustomerService">
 
 		<cxf:properties>
 			<entry key="schema-validation-enabled" value="true" />
@@ -26,6 +35,27 @@
 			<ref bean="loggingInInterceptor" />
 		</cxf:inInterceptors>
 	</cxf:cxfEndpoint>
+
+
+ 	
+	<cxf:bus>
+		<cxf:features>
+			<cxf:logging />
+			<wsa:addressing />
+			<wsrm-mgr:reliableMessaging>
+				<wsrm-policy:RMAssertion>
+					<wsrm-policy:BaseRetransmissionInterval
+						Milliseconds="4000" />
+					<wsrm-policy:AcknowledgementInterval
+						Milliseconds="2000" />
+				</wsrm-policy:RMAssertion>
+				<wsrm-mgr:destinationPolicy>
+					<wsrm-mgr:acksPolicy intraMessageThreshold="0" />
+				</wsrm-mgr:destinationPolicy>
+			</wsrm-mgr:reliableMessaging>
+		</cxf:features>
+	</cxf:bus>
+
 
 
 	<bean id="loggingOutInterceptor" class="org.apache.cxf.interceptor.LoggingOutInterceptor" />
